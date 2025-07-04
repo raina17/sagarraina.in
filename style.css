@@ -1,0 +1,365 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Montserrat:wght@400;600&display=swap');
+
+:root {
+    --primary-color: #0d6efd; /* A vibrant blue */
+    --secondary-color: #6f42c1; /* A rich purple */
+    --accent-glow: #00f2ea; /* A bright, glowing cyan for text */
+    --dark-bg: #111;
+    --light-bg: #fff;
+    --text-dark: #212529;
+    --text-light: #f8f9fa;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    line-height: 1.7;
+    background-color: var(--light-bg);
+    color: var(--text-dark);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+}
+
+.container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section {
+    padding: 100px 0;
+    text-align: center;
+    overflow: hidden; /* Important for containing animations */
+    position: relative; /* Needed for overlays */
+}
+
+.section h2 {
+    font-size: 3em;
+    margin-bottom: 40px;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 15px;
+}
+
+.section h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    border-radius: 2px;
+}
+
+.bg-dark {
+    background-color: var(--dark-bg);
+    color: var(--text-light);
+}
+
+.bg-dark h2 {
+    color: var(--text-light);
+}
+
+/* --- Hero Section with Particles --- */
+.hero {
+    color: var(--text-light);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    background-color: #1a1a2e; /* Fallback background color */
+    background-image: linear-gradient(45deg, #1a1a2e 0%, #16213e 74%); /* Gradient background */
+}
+
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1; /* Particles are on top of the background, behind content */
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2; /* Content is on top of particles */
+    padding: 40px;
+    background: rgba(0, 0, 0, 0.2); /* Darker frosted glass */
+    backdrop-filter: blur(5px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.artist-image {
+    width: 150px;
+    height: 200px;
+    border-radius: 15px; /* Rounded corners instead of a circle */
+    object-fit: cover;
+    margin-bottom: 20px;
+    border: 4px solid var(--text-light);
+}
+
+.hero h1 {
+    font-size: 4em;
+    margin: 0;
+    color: var(--accent-glow);
+    text-shadow: 0 0 15px rgba(0, 242, 234, 0.5); /* Glow effect */
+}
+
+.hero .tagline {
+    font-size: 1.3em;
+    color: #eee;
+    margin: 10px 0 30px 0;
+}
+
+.button {
+    display: inline-block;
+    padding: 15px 35px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    color: #fff;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    z-index: 5;
+}
+
+.button:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Sections with Background Images (Parallax Effect) --- */
+.section-with-bg {
+    color: var(--text-light);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* This creates the parallax effect */
+}
+
+.section-with-bg::before { /* Dark overlay for text readability */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: -1;
+}
+
+.section-with-bg h2 {
+    color: var(--text-light);
+}
+
+#about {
+    background-image: url('placeholder-about-bg.jpg');
+}
+#services {
+    background-image: url('placeholder-services-bg.jpg');
+}
+
+/* --- Image Scroller Styles --- */
+.scroller-container {
+    max-width: 1200px;
+    margin: 60px auto 0;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+}
+
+.scroller-inner {
+    display: flex;
+    gap: 20px;
+    width: max-content;
+    animation: scroll 40s linear infinite;
+}
+
+.scroller-container:hover .scroller-inner {
+    animation-play-state: paused;
+}
+
+@keyframes scroll {
+    to {
+        transform: translateX(calc(-4 * 200px - 4 * 20px));
+    }
+}
+
+.scroller-inner img {
+    width: 200px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    flex-shrink: 0;
+}
+
+/* --- Video Grid --- */
+.video-grid {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 40px;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.4s ease-in-out;
+}
+
+.video-container:hover {
+    transform: scale(1.05);
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* --- Services List --- */
+.services-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 30px;
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.services-list li {
+    font-size: 1.1em;
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--text-dark);
+    padding: 10px 20px;
+    border-radius: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+.services-list li:hover {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    transform: scale(1.1);
+}
+
+/* --- START: Updated Contact Section Styles --- */
+.contact-details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
+    gap: 40px;
+    margin-top: 50px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.contact-item {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 30px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.contact-item h3 {
+    color: var(--accent-glow);
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.contact-item p {
+    margin: 0;
+}
+
+.contact-item p a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.contact-item p a:hover {
+    color: var(--accent-glow);
+}
+/* --- END: Updated Contact Section Styles --- */
+
+
+/* --- Footer --- */
+footer {
+    background-color: var(--dark-bg);
+    color: #aaa;
+    text-align: center;
+    padding: 40px 0;
+}
+
+.social-links a {
+    display: inline-block;
+    margin: 0 15px;
+    transition: transform 0.3s ease;
+}
+
+.social-links a:hover {
+    transform: translateY(-5px);
+}
+
+.social-links img {
+    width: 30px;
+    height: 30px;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.social-links a:hover img {
+    opacity: 1;
+}
+
+/* --- ANIMATION ON SCROLL --- */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* Add staggered delays */
+.hero .animate-on-scroll:nth-child(1) { transition-delay: 0.2s; }
+.hero .animate-on-scroll:nth-child(2) { transition-delay: 0.4s; }
+.hero .animate-on-scroll:nth-child(3) { transition-delay: 0.6s; }
+.hero .animate-on-scroll:nth-child(4) { transition-delay: 0.8s; }
+.video-grid .animate-on-scroll:nth-child(2) { transition-delay: 0.2s; }
+.video-grid .animate-on-scroll:nth-child(3) { transition-delay: 0.4s; }
+
+.animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+    .section { padding: 80px 0; }
+    .section h2 { font-size: 2.2em; }
+    .hero h1 { font-size: 2.8em; }
+    .hero { height: 100vh; padding: 0; }
+    .video-grid { grid-template-columns: 1fr; }
+    .section-with-bg { background-attachment: scroll; }
+}
