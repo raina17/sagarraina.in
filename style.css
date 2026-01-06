@@ -365,7 +365,8 @@ footer {
 .whatsapp-float {
     position: fixed;
     right: 24px;
-    bottom: 24px;
+    /* moved slightly up */
+    bottom: 36px;
     z-index: 9999;
     width: 56px;
     height: 56px;
@@ -379,7 +380,8 @@ footer {
     opacity: 0;
     transform: translateY(14px) scale(0.98);
     will-change: transform, opacity;
-    animation: whatsapp-entrance 650ms cubic-bezier(.2,.8,.2,1) 0.55s forwards;
+    /* entrance then gentle bobbing */
+    animation: whatsapp-entrance 650ms cubic-bezier(.2,.8,.2,1) 0.45s forwards, whatsapp-bob 3.5s ease-in-out 1.15s infinite;
     transition: transform .15s ease, box-shadow .15s ease, opacity .15s ease;
     text-decoration: none;
 }
@@ -389,8 +391,10 @@ footer {
     height: 26px;
 }
 
+/* pause bob on hover and lift slightly */
 .whatsapp-float:hover {
-    transform: translateY(-6px) scale(1.03);
+    animation-play-state: paused, paused;
+    transform: translateY(-8px) scale(1.08) !important;
     box-shadow: 0 14px 34px rgba(0, 0, 0, 0.3);
 }
 
@@ -412,6 +416,12 @@ footer {
     }
 }
 
+@keyframes whatsapp-bob {
+    0% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-6px) scale(1.02); }
+    100% { transform: translateY(0) scale(1); }
+}
+
 /* Respect users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
     .whatsapp-float {
@@ -425,7 +435,8 @@ footer {
 @media (max-width:480px) {
     .whatsapp-float {
         right: 16px;
-        bottom: 16px;
+        /* slightly higher on mobile too */
+        bottom: 26px;
         width: 52px;
         height: 52px;
     }
