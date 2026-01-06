@@ -360,3 +360,77 @@ footer {
     .video-grid { grid-template-columns: 1fr; }
     .section-with-bg { background-attachment: scroll; }
 }
+
+/* WhatsApp floating button */
+.whatsapp-float {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 9999;
+    width: 56px;
+    height: 56px;
+    background-color: #25D366;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    /* entrance animation: start slightly lower and invisible, then fade + slide up */
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+    will-change: transform, opacity;
+    animation: whatsapp-entrance 650ms cubic-bezier(.2,.8,.2,1) 0.55s forwards;
+    transition: transform .15s ease, box-shadow .15s ease, opacity .15s ease;
+    text-decoration: none;
+}
+
+.whatsapp-float svg {
+    width: 26px;
+    height: 26px;
+}
+
+.whatsapp-float:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes whatsapp-entrance {
+    0% {
+        opacity: 0;
+        transform: translateY(14px) scale(0.98);
+    }
+    60% {
+        opacity: 1;
+        transform: translateY(-6px) scale(1.03);
+    }
+    80% {
+        transform: translateY(2px) scale(0.98);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .whatsapp-float {
+        animation: none !important;
+        transition: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
+
+@media (max-width:480px) {
+    .whatsapp-float {
+        right: 16px;
+        bottom: 16px;
+        width: 52px;
+        height: 52px;
+    }
+    .whatsapp-float svg {
+        width: 22px;
+        height: 22px;
+    }
+}
