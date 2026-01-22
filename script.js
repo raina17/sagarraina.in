@@ -8,6 +8,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    const loadScript = (src) => new Promise((resolve, reject) => {
+        const existing = document.querySelector(`script[src="${src}"]`);
+        if (existing) {
+            existing.addEventListener('load', () => resolve());
+            existing.addEventListener('error', reject);
+            if (existing.getAttribute('data-loaded') === 'true') {
+                resolve();
+            }
+            return;
+        }
+        const script = document.createElement('script');
+        script.src = src;
+        script.defer = true;
+        script.onload = () => {
+            script.setAttribute('data-loaded', 'true');
+            resolve();
+        };
+        script.onerror = reject;
+        document.body.appendChild(script);
+    });
+
     // --- SMOOTH SCROLL FOR ANCHOR LINKS ---
     const anchorLinks = document.querySelectorAll('a[href^="#"]');
     if (anchorLinks.length > 0) {
@@ -70,35 +91,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // --- SWIPER.JS INITIALIZATION SCRIPT ---
-    runWhenIdle(() => {
-        if (typeof Swiper !== 'undefined') {
-            const swiper = new Swiper('.swiper', {
-                slidesPerView: 'auto',
-                spaceBetween: 20,
-                loop: true,
-                freeMode: true,
-                autoplay: {
-                    delay: 0,
-                    disableOnInteraction: false,
-                    pauseOnMouseEnter: true,
-                },
-                speed: 5000,
-            });
-        }
-    });
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const saveData = navigator.connection && navigator.connection.saveData;
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const shouldSkipHeavy = prefersReducedMotion || saveData || isMobile;
+
+    if (!shouldSkipHeavy && document.querySelector('.swiper')) {
+        runWhenIdle(() => {
+            loadScript('https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js')
+                .then(() => {
+                    if (typeof Swiper !== 'undefined') {
+                        const swiper = new Swiper('.swiper', {
+                            slidesPerView: 'auto',
+                            spaceBetween: 20,
+                            loop: true,
+                            freeMode: true,
+                            autoplay: {
+                                delay: 0,
+                                disableOnInteraction: false,
+                                pauseOnMouseEnter: true,
+                            },
+                            speed: 5000,
+                        });
+                    }
+                })
+                .catch(() => {
+                    console.warn('Swiper failed to load.');
+                });
+        });
+    }
 
 
     // --- PARTICLE.JS CONFIGURATIONS AND INITIALIZATION ---
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const saveData = navigator.connection && navigator.connection.saveData;
-    const shouldSkipParticles = prefersReducedMotion || saveData;
+    const shouldSkipParticles = shouldSkipHeavy;
 
-    runWhenIdle(() => {
-        if (shouldSkipParticles) {
-            return;
-        }
-
-        if (typeof particlesJS !== 'undefined') {
+    if (!shouldSkipParticles) {
+        runWhenIdle(() => {
+            loadScript('https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js')
+                .then(() => {
+                    if (typeof particlesJS !== 'undefined') {
         
         // Config for Hero, Performances, and Contact sections
         const mainParticlesConfig = { particles: { number: { value: 80, density: { enable: true, value_area: 800 } }, color: { value: "#ffffff" }, shape: { type: "circle" }, opacity: { value: 0.5, random: false }, size: { value: 3, random: true }, line_linked: { enable: true, distance: 150, color: "#ffffff", opacity: 0.4, width: 1 }, move: { enable: true, speed: 6, direction: "none", random: false, straight: false, out_mode: "out", bounce: false } }, interactivity: { detect_on: "canvas", events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" }, resize: true }, modes: { grab: { distance: 400, line_linked: { opacity: 1 } }, bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 }, repulse: { distance: 200, duration: 0.4 }, push: { particles_nb: 4 }, remove: { particles_nb: 2 } } }, retina_detect: true };
@@ -107,24 +138,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const subtleParticlesConfig = { particles: { number: { value: 60, density: { enable: true, value_area: 800 } }, color: { value: ["#FFFFFF", "#00F2EA", "#6F42C1"] }, shape: { type: "star", stroke: { width: 0, color: "#000000" }, polygon: { nb_sides: 5 } }, opacity: { value: 0.6, random: true, anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false } }, size: { value: 4, random: true, anim: { enable: false } }, line_linked: { enable: false }, move: { enable: true, speed: 2, direction: "none", random: true, straight: false, out_mode: "out", bounce: false } }, interactivity: { detect_on: "canvas", events: { onhover: { enable: true, mode: "bubble" }, onclick: { enable: true, mode: "push" }, resize: true }, modes: { bubble: { distance: 250, size: 8, duration: 2, opacity: 0.8 }, push: { particles_nb: 4 } } }, retina_detect: true };
         
         // Load all the particle animations
-            if (document.getElementById('hero-particles')) {
-                particlesJS('hero-particles', mainParticlesConfig);
-            }
-            if (document.getElementById('about-particles')) {
-                particlesJS('about-particles', subtleParticlesConfig);
-            }
-            if (document.getElementById('portfolio-particles')) {
-                particlesJS('portfolio-particles', mainParticlesConfig);
-            }
-            if (document.getElementById('services-particles')) {
-                particlesJS('services-particles', subtleParticlesConfig);
-            }
-            if (document.getElementById('contact-particles')) {
-                particlesJS('contact-particles', mainParticlesConfig);
-            }
-        } else {
-            console.error('particles.js library not loaded.');
-        }
-    });
+                        if (document.getElementById('hero-particles')) {
+                            particlesJS('hero-particles', mainParticlesConfig);
+                        }
+                        if (document.getElementById('about-particles')) {
+                            particlesJS('about-particles', subtleParticlesConfig);
+                        }
+                        if (document.getElementById('portfolio-particles')) {
+                            particlesJS('portfolio-particles', mainParticlesConfig);
+                        }
+                        if (document.getElementById('services-particles')) {
+                            particlesJS('services-particles', subtleParticlesConfig);
+                        }
+                        if (document.getElementById('contact-particles')) {
+                            particlesJS('contact-particles', mainParticlesConfig);
+                        }
+                    } else {
+                        console.error('particles.js library not loaded.');
+                    }
+                })
+                .catch(() => {
+                    console.warn('particles.js failed to load.');
+                });
+        });
+    }
 
 });
