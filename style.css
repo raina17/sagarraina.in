@@ -415,7 +415,15 @@ footer {
     .section { padding: 80px 0; }
     .section h2 { font-size: 2.2em; }
     .hero h1 { font-size: 2.8em; }
-    .hero { height: 100vh; padding: 0; }
+    .hero { min-height: 100vh; height: auto; padding: 60px 0; }
+    .hero-content { padding: 30px 20px; }
+    .artist-image { 
+        width: 200px; 
+        height: 240px;
+        margin-bottom: 15px;
+    }
+    .hero .tagline { font-size: 1.1em; }
+    .hero-subtitle { font-size: 0.95em; }
     .video-grid { grid-template-columns: 1fr; }
     .section-with-bg { background-attachment: scroll; }
 }
