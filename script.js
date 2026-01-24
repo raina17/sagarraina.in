@@ -161,7 +161,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- PARTICLE.JS CONFIGURATIONS AND INITIALIZATION ---
     // Enable particles on mobile, but respect reduced motion and save data preferences
-    const shouldSkipParticles = prefersReducedMotion || saveData;
+    const particlesPrefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const particlesSaveData = navigator.connection && navigator.connection.saveData;
+    const shouldSkipParticles = particlesPrefersReducedMotion || particlesSaveData;
 
     if (!shouldSkipParticles) {
         runWhenIdle(() => {

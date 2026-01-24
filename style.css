@@ -418,7 +418,6 @@ footer {
     .hero { height: 100vh; padding: 0; }
     .video-grid { grid-template-columns: 1fr; }
     .section-with-bg { background-attachment: scroll; }
-    .particles-bg { display: none; }
 }
 
 /* WhatsApp floating button */
