@@ -130,9 +130,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const saveData = navigator.connection && navigator.connection.saveData;
     const isMobile = window.matchMedia('(max-width: 768px)').matches;
-    const shouldSkipHeavy = prefersReducedMotion || saveData || isMobile;
+    // Enable Swiper on mobile, but respect reduced motion and save data
+    const shouldSkipSwiper = prefersReducedMotion || saveData;
 
-    if (!shouldSkipHeavy && document.querySelector('.swiper')) {
+    if (!shouldSkipSwiper && document.querySelector('.swiper')) {
         runWhenIdle(() => {
             loadScript('https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js')
                 .then(() => {
@@ -147,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 disableOnInteraction: false,
                                 pauseOnMouseEnter: true,
                             },
-                            speed: 5000,
+                            speed: isMobile ? 3000 : 5000, // Faster on mobile for better UX
                         });
                     }
                 })
