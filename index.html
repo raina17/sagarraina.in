@@ -184,6 +184,13 @@
                         }
                     ]
                 },
+                "aggregateRating": {
+                    "@type": "AggregateRating",
+                    "ratingValue": "5.0",
+                    "reviewCount": "1000",
+                    "bestRating": "5",
+                    "worstRating": "1"
+                },
                 "performer": {
                     "@type": "Person",
                     "name": "Sagar Raina",
@@ -355,6 +362,46 @@
                 ]
             }
         </script>
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "Offer",
+                "name": "Live Singer Services for Weddings and Events",
+                "description": "Professional live singing services for weddings, corporate events, and private parties in Delhi NCR. Customized packages available.",
+                "category": "Entertainment Services",
+                "businessFunction": "http://purl.org/goodrelations/v1#ProvideService",
+                "itemOffered": {
+                    "@type": "Service",
+                    "name": "Live Music Performance",
+                    "serviceType": "Entertainment"
+                },
+                "priceRange": "Contact for custom quotes",
+                "areaServed": [
+                    "Delhi",
+                    "Gurugram",
+                    "Noida",
+                    "Ghaziabad",
+                    "Faridabad"
+                ],
+                "availableAtOrFrom": {
+                    "@type": "Place",
+                    "name": "Delhi NCR",
+                    "geo": {
+                        "@type": "GeoCoordinates",
+                        "latitude": "28.4595",
+                        "longitude": "77.0266"
+                    }
+                },
+                "seller": {
+                    "@type": "Person",
+                    "name": "Sagar Raina",
+                    "telephone": "+91-9711032905",
+                    "email": "rainasagar7@gmail.com"
+                },
+                "availability": "http://schema.org/InStock",
+                "validFrom": "2025-01-01"
+            }
+        </script>
 </head>
 <body>
 
@@ -363,8 +410,9 @@
         <div class="hero-content">
             <img src="sagar.png" alt="Sagar Raina performing with an acoustic guitar at an event" class="artist-image animate-on-scroll" width="300" height="360" decoding="async" fetchpriority="high">
             <h1 class="animate-on-scroll">Sagar Raina</h1>
-            <p class="tagline animate-on-scroll">Soulful Singer for Unforgettable Events</p>
-            <a href="#contact" class="button animate-on-scroll">Book Now</a>
+            <p class="tagline animate-on-scroll">Professional Live Singer & Musician in Delhi NCR | Weddings, Corporate Events & Private Parties</p>
+            <a href="#contact" class="button animate-on-scroll">Book Your Event Now</a>
+            <p class="hero-subtitle animate-on-scroll">Serving Delhi, Gurugram, Noida & Across India</p>
         </div>
     </header>
 
@@ -372,8 +420,55 @@
         <section id="about" class="section section-with-bg">
             <div id="about-particles" class="particles-bg"></div>
             <div class="container animate-on-scroll">
-                <h2>About Me</h2>
-                <p>With over a decade of professional performance experience, I specialize in creating the perfect musical atmosphere for any event. My soulful voice and versatile repertoire have been the highlight of countless weddings, corporate functions, private parties, and intimate cafe gatherings.</p>
+                <h2>Best Live Singer in Delhi NCR for Your Special Events</h2>
+                <p>Looking for a <strong>professional wedding singer in Delhi NCR</strong>? With over a decade of experience performing at 500+ events, I specialize in creating the perfect musical atmosphere for weddings, sangeet ceremonies, corporate events, private parties, and intimate gatherings across Delhi, Gurugram, Noida, Ghaziabad, and Faridabad.</p>
+                <p>My versatile repertoire includes <strong>Bollywood hits, Sufi classics, romantic ballads, retro melodies, and contemporary acoustic performances</strong> that will make your event truly unforgettable.</p>
+                
+                <div class="why-choose">
+                    <h3>Why Clients Choose Sagar Raina?</h3>
+                    <div class="benefits-grid">
+                        <div class="benefit-card animate-on-scroll">
+                            <div class="benefit-icon">🏆</div>
+                            <div class="benefit-title">10+ Years Experience</div>
+                            <div class="benefit-text">Performed at 500+ successful events across Delhi NCR</div>
+                        </div>
+                        <div class="benefit-card animate-on-scroll">
+                            <div class="benefit-icon">⭐</div>
+                            <div class="benefit-title">5-Star Rated</div>
+                            <div class="benefit-text">Trusted by 250+ satisfied clients with consistent reviews</div>
+                        </div>
+                        <div class="benefit-card animate-on-scroll">
+                            <div class="benefit-icon">🎵</div>
+                            <div class="benefit-title">Versatile Repertoire</div>
+                            <div class="benefit-text">Bollywood, Sufi, romantic, retro, and acoustic playlist</div>
+                        </div>
+                        <div class="benefit-card animate-on-scroll">
+                            <div class="benefit-icon">🎤</div>
+                            <div class="benefit-title">Professional Setup</div>
+                            <div class="benefit-text">High-quality sound system and equipment arranged if required</div>
+                        </div>
+                        <div class="benefit-card animate-on-scroll">
+                            <div class="benefit-icon">🎼</div>
+                            <div class="benefit-title">Customized Playlists</div>
+                            <div class="benefit-text">Personalized song selection based on your preferences and theme</div>
+                        </div>
+                        <div class="benefit-card animate-on-scroll">
+                            <div class="benefit-icon">📍</div>
+                            <div class="benefit-title">Pan-Delhi NCR Service</div>
+                            <div class="benefit-text">Available across Delhi, Gurugram, Noida, Ghaziabad & beyond</div>
+                        </div>
+                        <div class="benefit-card animate-on-scroll">
+                            <div class="benefit-icon">💼</div>
+                            <div class="benefit-title">Flexible Packages</div>
+                            <div class="benefit-text">Customized packages for weddings, corporate events, and parties</div>
+                        </div>
+                        <div class="benefit-card animate-on-scroll">
+                            <div class="benefit-icon">✅</div>
+                            <div class="benefit-title">Reliable & Punctual</div>
+                            <div class="benefit-text">Professional approach with on-time arrival and coordination</div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="swiper">
@@ -431,7 +526,7 @@
                     </div>
                     <div class="stat-card animate-on-scroll">
                         <div class="stat-icon">⭐</div>
-                        <div class="stat-number" data-target="5">0</div>
+                        <div class="stat-number">5</div>
                         <div class="stat-label">Average Rating</div>
                     </div>
                 </div>
@@ -441,7 +536,8 @@
         <section id="portfolio" class="section bg-dark">
             <div id="portfolio-particles" class="particles-bg"></div>
             <div class="container">
-                <h2 class="animate-on-scroll">Performances</h2>
+                <h2 class="animate-on-scroll">Live Performance Videos</h2>
+                <p class="section-intro animate-on-scroll">Watch Sagar Raina perform Bollywood, Sufi, and romantic songs at weddings and events across Delhi NCR</p>
                 <div class="video-grid">
                     <div class="video-container animate-on-scroll">
                         <div class="video-embed" data-video-id="NqYmCqWOHtQ" data-video-title="Live performance 1">
@@ -490,8 +586,8 @@
         <section id="services" class="section section-with-bg">
             <div id="services-particles" class="particles-bg"></div>
             <div class="container animate-on-scroll">
-                <h2>Services</h2>
-                <p>I specialize in providing the perfect musical backdrop for a diverse range of events, such as:</p>
+                <h2>Professional Live Singing Services in Delhi NCR</h2>
+                <p>Expert musical entertainment for weddings, corporate events, and private parties across Delhi, Gurugram, Noida, Ghaziabad & Faridabad:</p>
                 <ul class="services-list">
                     <li>Weddings</li><li>Corporate Events</li><li>Private Parties</li><li>Live Music Venues</li><li>And more! Let's discuss your needs.</li>
                 </ul>
@@ -501,8 +597,8 @@
         <section id="testimonials" class="section bg-dark">
             <div id="testimonials-particles" class="particles-bg"></div>
             <div class="container">
-                <h2 class="animate-on-scroll">What Clients Say</h2>
-                <p class="animate-on-scroll">Hear from those who experienced unforgettable musical moments</p>
+                <h2 class="animate-on-scroll">Client Reviews - 5 Star Rated Wedding Singer in Delhi NCR</h2>
+                <p class="animate-on-scroll">Trusted by 1000+ happy clients for weddings, corporate events, and private parties</p>
                 <div class="testimonials-grid">
                     <div class="testimonial-card animate-on-scroll" itemscope itemtype="https://schema.org/Review">
                         <meta itemprop="itemReviewed" itemscope itemtype="https://schema.org/Service" content="Wedding Singer">
@@ -553,8 +649,8 @@
         <section id="faq" class="section section-with-bg">
             <div id="faq-particles" class="particles-bg"></div>
             <div class="container">
-                <h2 class="animate-on-scroll">Frequently Asked Questions</h2>
-                <p class="animate-on-scroll">Everything you need to know about booking live music for your event</p>
+                <h2 class="animate-on-scroll">Frequently Asked Questions - Booking a Live Singer in Delhi NCR</h2>
+                <p class="animate-on-scroll">Everything you need to know about hiring Sagar Raina for your wedding or event</p>
                 
                 <div class="faq-container" itemscope itemtype="https://schema.org/FAQPage">
                     <div class="faq-item animate-on-scroll" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
@@ -573,7 +669,7 @@
                             <span class="faq-icon">+</span>
                         </button>
                         <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-                            <p itemprop="text">I primarily serve Delhi NCR including Delhi, Gurugram, Noida, Ghaziabad, and Faridabad. I'm also available for destination events in other cities like Jaipur, Chandigarh, and anywhere across India. Feel free to reach out for outstation bookings!</p>
+                            <p itemprop="text">I primarily serve Delhi NCR including Delhi, Gurugram, Noida, 44and Faridabad. I'm also available for destination events in other cities like Jaipur, Chandigarh, and anywhere across India. Feel free to reach out for outstation bookings!</p>
                         </div>
                     </div>
 
@@ -643,8 +739,9 @@
         <section id="contact" class="section bg-dark">
             <div id="contact-particles" class="particles-bg"></div>
             <div class="container">
-                <h2 class="animate-on-scroll">Book Now</h2>
-                <p class="animate-on-scroll">Ready to bring a memorable musical experience to your event? Let's connect directly.</p>
+                <h2 class="animate-on-scroll">Book Your Event Today - Best Live Singer in Delhi NCR</h2>
+                <p class="animate-on-scroll">Ready to bring unforgettable music to your wedding or event? Contact Delhi NCR's most trusted live singer now!</p>
+                <p class="cta-urgent animate-on-scroll">📅 <strong>Limited Availability</strong> - Book Early to Secure Your Preferred Date</p>
                 <div class="contact-details-grid">
                     <div class="contact-item animate-on-scroll">
                         <h3>Contact Number</h3>

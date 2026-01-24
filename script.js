@@ -94,6 +94,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (statNumbers.length > 0) {
         const animateCounter = (element) => {
             const target = parseInt(element.getAttribute('data-target'));
+            // Skip if no data-target attribute (e.g., fixed rating)
+            if (isNaN(target)) return;
+            
             const duration = 2000; // 2 seconds
             const increment = target / (duration / 16); // 60fps
             let current = 0;
