@@ -134,7 +134,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const shouldSkipSwiper = prefersReducedMotion || saveData;
 
     if (!shouldSkipSwiper && document.querySelector('.swiper')) {
-        runWhenIdle(() => {
+        // Delay Swiper initialization slightly to prioritize critical content
+        const initSwiper = () => {
             loadScript('https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js')
                 .then(() => {
                     if (typeof Swiper !== 'undefined') {
@@ -149,13 +150,20 @@ document.addEventListener('DOMContentLoaded', () => {
                                 pauseOnMouseEnter: true,
                             },
                             speed: isMobile ? 3000 : 5000, // Faster on mobile for better UX
+                            lazy: {
+                                loadPrevNext: true,
+                                loadPrevNextAmount: 2
+                            }
                         });
                     }
                 })
                 .catch(() => {
                     console.warn('Swiper failed to load.');
                 });
-        });
+        };
+        
+        // Initialize after a small delay to prioritize hero section
+        setTimeout(() => runWhenIdle(initSwiper), 1000);
     }
 
 
@@ -166,16 +174,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const shouldSkipParticles = particlesPrefersReducedMotion || particlesSaveData;
 
     if (!shouldSkipParticles) {
-        runWhenIdle(() => {
+        // Delay particles even more to prioritize main content
+        const initParticles = () => {
             loadScript('https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js')
                 .then(() => {
                     if (typeof particlesJS !== 'undefined') {
         
         // Config for Hero, Performances, and Contact sections
-        const mainParticlesConfig = { particles: { number: { value: 80, density: { enable: true, value_area: 800 } }, color: { value: "#ffffff" }, shape: { type: "circle" }, opacity: { value: 0.5, random: false }, size: { value: 3, random: true }, line_linked: { enable: true, distance: 150, color: "#ffffff", opacity: 0.4, width: 1 }, move: { enable: true, speed: 6, direction: "none", random: false, straight: false, out_mode: "out", bounce: false } }, interactivity: { detect_on: "canvas", events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" }, resize: true }, modes: { grab: { distance: 400, line_linked: { opacity: 1 } }, bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 }, repulse: { distance: 200, duration: 0.4 }, push: { particles_nb: 4 }, remove: { particles_nb: 2 } } }, retina_detect: true };
+        const isMobileDevice = window.matchMedia('(max-width: 768px)').matches;
+        const mainParticlesConfig = { particles: { number: { value: isMobileDevice ? 30 : 80, density: { enable: true, value_area: 800 } }, color: { value: "#ffffff" }, shape: { type: "circle" }, opacity: { value: 0.5, random: false }, size: { value: 3, random: true }, line_linked: { enable: true, distance: isMobileDevice ? 100 : 150, color: "#ffffff", opacity: 0.4, width: 1 }, move: { enable: true, speed: isMobileDevice ? 3 : 6, direction: "none", random: false, straight: false, out_mode: "out", bounce: false } }, interactivity: { detect_on: "canvas", events: { onhover: { enable: !isMobileDevice, mode: "repulse" }, onclick: { enable: true, mode: "push" }, resize: true }, modes: { grab: { distance: 400, line_linked: { opacity: 1 } }, bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 }, repulse: { distance: 200, duration: 0.4 }, push: { particles_nb: 2 }, remove: { particles_nb: 2 } } }, retina_detect: true };
         
         // Config for About Me and Services sections
-        const subtleParticlesConfig = { particles: { number: { value: 60, density: { enable: true, value_area: 800 } }, color: { value: ["#FFFFFF", "#00F2EA", "#6F42C1"] }, shape: { type: "star", stroke: { width: 0, color: "#000000" }, polygon: { nb_sides: 5 } }, opacity: { value: 0.6, random: true, anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false } }, size: { value: 4, random: true, anim: { enable: false } }, line_linked: { enable: false }, move: { enable: true, speed: 2, direction: "none", random: true, straight: false, out_mode: "out", bounce: false } }, interactivity: { detect_on: "canvas", events: { onhover: { enable: true, mode: "bubble" }, onclick: { enable: true, mode: "push" }, resize: true }, modes: { bubble: { distance: 250, size: 8, duration: 2, opacity: 0.8 }, push: { particles_nb: 4 } } }, retina_detect: true };
+        const subtleParticlesConfig = { particles: { number: { value: isMobileDevice ? 20 : 60, density: { enable: true, value_area: 800 } }, color: { value: ["#FFFFFF", "#00F2EA", "#6F42C1"] }, shape: { type: "star", stroke: { width: 0, color: "#000000" }, polygon: { nb_sides: 5 } }, opacity: { value: 0.6, random: true, anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false } }, size: { value: 4, random: true, anim: { enable: false } }, line_linked: { enable: false }, move: { enable: true, speed: isMobileDevice ? 1 : 2, direction: "none", random: true, straight: false, out_mode: "out", bounce: false } }, interactivity: { detect_on: "canvas", events: { onhover: { enable: !isMobileDevice, mode: "bubble" }, onclick: { enable: true, mode: "push" }, resize: true }, modes: { bubble: { distance: 250, size: 8, duration: 2, opacity: 0.8 }, push: { particles_nb: 2 } } }, retina_detect: true };
         
         // Load all the particle animations
                         if (document.getElementById('hero-particles')) {
@@ -209,6 +219,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 .catch(() => {
                     console.warn('particles.js failed to load.');
                 });
+        };
+        
+        // Initialize particles after hero is loaded and user has interacted or 2 seconds passed
+        let particlesInitialized = false;
+        const startParticles = () => {
+            if (!particlesInitialized) {
+                particlesInitialized = true;
+                runWhenIdle(initParticles);
+            }
+        };
+        
+        setTimeout(startParticles, 2000);
+        ['scroll', 'click', 'touchstart'].forEach(event => {
+            window.addEventListener(event, startParticles, { once: true });
         });
     }
 
