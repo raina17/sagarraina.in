@@ -89,6 +89,42 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- COUNTER ANIMATION FOR STATS ---
+    const statNumbers = document.querySelectorAll('.stat-number');
+    if (statNumbers.length > 0) {
+        const animateCounter = (element) => {
+            const target = parseInt(element.getAttribute('data-target'));
+            const duration = 2000; // 2 seconds
+            const increment = target / (duration / 16); // 60fps
+            let current = 0;
+            
+            const updateCounter = () => {
+                current += increment;
+                if (current < target) {
+                    element.textContent = Math.floor(current);
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    element.textContent = target;
+                }
+            };
+            
+            updateCounter();
+        };
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.5
+        });
+
+        statNumbers.forEach((stat) => statsObserver.observe(stat));
+    }
+
 
     // --- SWIPER.JS INITIALIZATION SCRIPT ---
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -123,7 +159,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // --- PARTICLE.JS CONFIGURATIONS AND INITIALIZATION ---
-    const shouldSkipParticles = shouldSkipHeavy;
+    // Enable particles on mobile, but respect reduced motion and save data preferences
+    const shouldSkipParticles = prefersReducedMotion || saveData;
 
     if (!shouldSkipParticles) {
         runWhenIdle(() => {
@@ -144,6 +181,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (document.getElementById('about-particles')) {
                             particlesJS('about-particles', subtleParticlesConfig);
                         }
+                        if (document.getElementById('stats-particles')) {
+                            particlesJS('stats-particles', mainParticlesConfig);
+                        }
                         if (document.getElementById('portfolio-particles')) {
                             particlesJS('portfolio-particles', mainParticlesConfig);
                         }
@@ -153,6 +193,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (document.getElementById('contact-particles')) {
                             particlesJS('contact-particles', mainParticlesConfig);
                         }
+                        if (document.getElementById('faq-particles')) {
+                            particlesJS('faq-particles', subtleParticlesConfig);
+                        }
+                        if (document.getElementById('testimonials-particles')) {
+                            particlesJS('testimonials-particles', mainParticlesConfig);
+                        }
                     } else {
                         console.error('particles.js library not loaded.');
                     }
@@ -160,6 +206,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 .catch(() => {
                     console.warn('particles.js failed to load.');
                 });
+        });
+    }
+
+    // --- FAQ ACCORDION FUNCTIONALITY ---
+    const faqItems = document.querySelectorAll('.faq-item');
+    if (faqItems.length > 0) {
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            if (question) {
+                question.addEventListener('click', () => {
+                    // Close other items
+                    const wasActive = item.classList.contains('active');
+                    faqItems.forEach(otherItem => {
+                        otherItem.classList.remove('active');
+                    });
+                    // Toggle current item
+                    if (!wasActive) {
+                        item.classList.add('active');
+                    }
+                });
+            }
         });
     }
 
