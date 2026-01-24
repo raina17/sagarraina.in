@@ -59,6 +59,8 @@
     <meta name="ICBM" content="28.4595, 77.0266">
 
     <link rel="preload" as="image" href="sagar.png" imagesrcset="sagar.png 1x" fetchpriority="high">
+    <link rel="preload" as="script" href="script.js">
+    <link rel="preload" as="style" href="style.css">
 
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
@@ -69,20 +71,34 @@
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <!-- Defer non-critical CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"></noscript>
 
+    <!-- Optimize font loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet"></noscript>
+    
+    <!-- Critical CSS for above-the-fold content -->
+    <style>
+        body{margin:0;font-family:'Montserrat',sans-serif;background:#fff;color:#212529}
+        .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#111;position:relative;overflow:hidden}
+        .hero-content{text-align:center;z-index:2;position:relative;color:#f8f9fa}
+        h1{font-family:'Poppins',sans-serif;font-size:3.5em;margin:0;background:linear-gradient(45deg,#0d6efd,#00f2ea);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .tagline{font-size:1.3em;margin:20px 0}
+        .button{display:inline-block;padding:15px 40px;background:linear-gradient(135deg,#0d6efd,#6f42c1);color:#fff;text-decoration:none;border-radius:50px;font-weight:600;margin-top:30px;transition:all .3s}
+        .artist-image{width:300px;height:360px;border-radius:16px;margin-bottom:30px}
+        .particles-bg{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1}
+        .animate-on-scroll{opacity:0;transform:translateY(30px);transition:opacity .8s,transform .8s}
+        .animate-on-scroll.is-visible{opacity:1;transform:translateY(0)}
+    </style>
+    
     <link rel="stylesheet" href="style.css">
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1NRBMJJQSW"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-1NRBMJJQSW');
-    </script>
-        <script type="application/ld+json">
+    
+    <!-- Schema markup for SEO -->
+    <script type="application/ld+json">
             {
                 "@context": "https://schema.org",
                 "@type": "LocalBusiness",
@@ -660,5 +676,30 @@
             <path fill="#ffffff" d="M17.472 14.382c-.297-.148-1.758-.867-2.03-.967-.273-.099-.472-.148-.672.148-.198.297-.768.966-.942 1.164-.173.198-.347.223-.644.075-.297-.148-1.255-.462-2.39-1.475-.885-.788-1.48-1.761-1.653-2.058-.173-.297-.018-.458.13-.604.134-.133.298-.347.447-.52.149-.173.198-.297.298-.495.099-.198 0-.372-.05-.52-.05-.148-.672-1.612-.92-2.206-.242-.579-.487-.5-.672-.51l-.572-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.148.198 2.095 3.2 5.076 4.487.709.306 1.26.489 1.691.626.71.226 1.357.194 1.87.118.571-.085 1.758-.719 2.006-1.414.248-.695.248-1.29.173-1.414-.074-.124-.273-.198-.57-.346z"/>
         </svg>
     </a>
+    
+    <!-- Google Analytics - loaded after main content -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1NRBMJJQSW"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-1NRBMJJQSW');
+    </script>
+    
+    <!-- Prefetch critical resources on idle -->
+    <script>
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => {
+          const links = ['https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', 
+                         'https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js'];
+          links.forEach(url => {
+            const link = document.createElement('link');
+            link.rel = 'prefetch';
+            link.href = url;
+            document.head.appendChild(link);
+          });
+        });
+      }
+    </script>
 </body>
 </html>
