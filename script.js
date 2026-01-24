@@ -194,6 +194,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (document.getElementById('hero-particles')) {
                             particlesJS('hero-particles', mainParticlesConfig);
                         }
+                        if (document.getElementById('why-particles')) {
+                            particlesJS('why-particles', subtleParticlesConfig);
+                        }
                         if (document.getElementById('about-particles')) {
                             particlesJS('about-particles', subtleParticlesConfig);
                         }

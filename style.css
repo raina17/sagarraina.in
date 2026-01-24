@@ -784,7 +784,7 @@ footer {
     line-height: 1.6;
 }
 
-.section .section-intro {
+.section.section-with-bg .section-intro {
     color: rgba(33, 37, 41, 0.85);
 }
 
