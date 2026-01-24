@@ -31,7 +31,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .section {
-    padding: 100px 0;
+    padding: 10px 0;
     text-align: center;
     overflow: hidden; 
     position: relative; 
@@ -67,6 +67,15 @@ h1, h2, h3, h4, h5, h6 {
 .bg-dark {
     background-color: var(--dark-bg);
     color: var(--text-light);
+}
+
+/* Reduce gap between stats and gallery sections */
+#stats {
+    padding-bottom: 10px;
+}
+
+#gallery {
+    padding-top: 10px;
 }
 
 .bg-dark h2 {
@@ -106,8 +115,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .artist-image {
-    width: 300px;
-    height: 360px;
+    width: 520px;
+    height: 624px;
     border-radius: 15px;
     object-fit: cover;
     margin-bottom: 20px;
@@ -412,14 +421,14 @@ footer {
 
 
 @media (max-width:768px) {
-    .section { padding: 80px 0; }
+    .section { padding: 10px 0; }
     .section h2 { font-size: 2.2em; }
     .hero h1 { font-size: 2.8em; }
     .hero { min-height: 100vh; height: auto; padding: 60px 0; }
     .hero-content { padding: 30px 20px; }
     .artist-image { 
-        width: 200px; 
-        height: 240px;
+        width: 280px; 
+        height: 336px;
         margin-bottom: 15px;
     }
     .hero .tagline { font-size: 1.1em; }
